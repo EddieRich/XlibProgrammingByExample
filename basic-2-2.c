@@ -41,22 +41,16 @@ int main(int argc, char **argv)
   screen_num = DefaultScreen(display);
   /*winatt.background_pixel = WhitePixel(display, screen_num);*/
   /* exercise 4 */
-  winatt.background_pixel = 0xFF00FFFF;
+  winatt.background_pixel = 0xFFFFFF00;
 
   winatt.border_pixel = BlackPixel(display, screen_num);
   winatt.event_mask = ButtonPressMask;
   valuemask = CWBackPixel | CWBorderPixel | CWEventMask;
   window = XCreateWindow(display, RootWindow(display, screen_num),
-                         200, 200, 800, 600, 2,
+                         200, 100, 800, 600, 2,
                          DefaultDepth(display, screen_num), InputOutput,
                          DefaultVisual(display, screen_num),
                          valuemask, &winatt);
-  /* exercise 1 */
-  if (window == NULL)
-  {
-    fprintf(stderr, "Could not create window");
-    return 2;
-  }
 
   /* 3 .give the Window Manager hints */
 

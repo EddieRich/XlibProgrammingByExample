@@ -6,3 +6,4 @@ sudo apt install libx11-dev libx11-doc
 
 ## build and execute
 gcc -o basic-2-2 basic-2-2.c -lX11
+./basic-2-2

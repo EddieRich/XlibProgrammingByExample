@@ -8,6 +8,9 @@
 #include <X11/Xlib.h>
 #include <X11/Xutil.h>
 
+/* exercise 1 */
+#include <stdio.h>
+
 int main(int argc, char **argv)
 {
   Display *display;
@@ -26,11 +29,21 @@ int main(int argc, char **argv)
 
   display = XOpenDisplay(NULL);
 
+  /* exercise 1 */
+  if (display == NULL)
+  {
+    fprintf(stderr, "Could not open display");
+    return 1;
+  }
+
   /* 2 .create a top-level window */
 
   screen_num = DefaultScreen(display);
-  winatt.background_pixel = WhitePixel(display, screen_num);
-  winatt.border_pixel = BlackPixel(display, screen_num); // ignored by window manager
+  /*winatt.background_pixel = WhitePixel(display, screen_num);*/
+  /* exercise 4 */
+  winatt.background_pixel = 0xFF00FFFF;
+
+  winatt.border_pixel = BlackPixel(display, screen_num);
   winatt.event_mask = ButtonPressMask;
   valuemask = CWBackPixel | CWBorderPixel | CWEventMask;
   window = XCreateWindow(display, RootWindow(display, screen_num),
@@ -38,6 +51,12 @@ int main(int argc, char **argv)
                          DefaultDepth(display, screen_num), InputOutput,
                          DefaultVisual(display, screen_num),
                          valuemask, &winatt);
+  /* exercise 1 */
+  if (window == NULL)
+  {
+    fprintf(stderr, "Could not create window");
+    return 2;
+  }
 
   /* 3 .give the Window Manager hints */
 
@@ -64,6 +83,8 @@ int main(int argc, char **argv)
     switch (event.type)
     {
     case ButtonPress:
+      /* exercise 2 */
+      done = 1;
       break;
     }
   }
